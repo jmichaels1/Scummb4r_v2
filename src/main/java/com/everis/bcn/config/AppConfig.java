@@ -16,7 +16,7 @@ import com.everis.bcn.model.ModdelMapperConfig;
  * @author J Michael
  *
  */
-@ComponentScan(basePackageClasses = {EntityManagerConfig.class, MessageString.class, BookingAssembler.class, 
+@ComponentScan(basePackageClasses = {MessageString.class, BookingAssembler.class, 
 		ModdelMapperConfig.class})
 @Configuration
 public class AppConfig {

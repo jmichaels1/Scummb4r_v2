@@ -2,18 +2,11 @@ package com.everis.bcn.daoImp;
 
 import java.util.ArrayList;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
-import com.everis.bcn.config.AppConfig;
-import com.everis.bcn.config.EntityManagerConfig;
 import com.everis.bcn.dao.Dao;
-import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Restaurant;
 import com.google.common.collect.Sets;
 
@@ -26,8 +19,8 @@ import com.google.common.collect.Sets;
 @Repository
 public class RestaurantDAOImp implements Dao<Restaurant> {
 	
-	private EntityManager entityManager = new AnnotationConfigApplicationContext(AppConfig.class)
-			.getBean(EntityManagerConfig.class).getEntityManager();
+	@Autowired
+	private EntityManager entityManager;
 	
 	@Override
 	public void save(Restaurant restaurant) {
@@ -50,11 +43,12 @@ public class RestaurantDAOImp implements Dao<Restaurant> {
 		return entityManager.find(Restaurant.class, restaurantId);
 	}
 	
+	
 	public Restaurant get(String restaurantName) {
+		System.out.println("eres nulo entityManager de restDaoImp (2) : " + entityManager);
 		Restaurant rest = entityManager
 				.createQuery("Select a From Restaurant a where a.name = '" + restaurantName + "'", Restaurant.class)
 				.getSingleResult();
-		System.out.println("ERES NULL ? : " + rest);
 		return  rest;
 	}
 
@@ -68,6 +62,7 @@ public class RestaurantDAOImp implements Dao<Restaurant> {
 
 	@Override
 	public Set<Restaurant> getAll() {
+		System.out.println("eres nulo entityManager de restDaoImp (1) : " + entityManager);
 		return Sets.newHashSet((ArrayList<Restaurant>) entityManager
 				.createQuery("Select a From Restaurant a", Restaurant.class)
 				.getResultList());

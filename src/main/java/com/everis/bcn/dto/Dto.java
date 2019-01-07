@@ -1,42 +1,35 @@
 package com.everis.bcn.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.everis.bcn.daoImp.RestaurantDAOImp;
 import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.entity.Restaurant;
 import com.everis.bcn.entity.Turn;
+import com.everis.bcn.model.DaoByDto;
+import com.everis.bcn.serviceImp.IResturantBusinessImp;
 
 /**
  * 
  * @author jsalirio
  *
  */
-public abstract class Dto {
-	
-	private ArrayList<Restaurant> aListRestaurant;
-	private ArrayList<Turn> aListTurn;
+@Component
+public class Dto {
 	
 	private String restaurantName;
 	private Date day;
 	private int turn;
 	
+//	private IResturantBusinessImp iResturantBusinessImp;
+	@Autowired private DaoByDto daoByDto;
+	
 	
 	/*** Getters And Setters ****/
 	
-	public ArrayList<Restaurant> getaListRestaurant() {
-		return aListRestaurant;
-	}
-	public void setaListRestaurant(ArrayList<Restaurant> aListRestaurant) {
-		this.aListRestaurant = aListRestaurant;
-	}
-	public ArrayList<Turn> getaListTurn() {
-		return aListTurn;
-	}
-	public void setaListTurn(ArrayList<Turn> aListTurn) {
-		this.aListTurn = aListTurn;
-	}
 	public String getRestaurantName() {
 		return restaurantName;
 	}
@@ -56,13 +49,38 @@ public abstract class Dto {
 		this.turn = turn;
 	}
 	
+//	public IResturantBusinessImp getIResturantBusinessImp() {
+//		return iResturantBusinessImp;
+//	}
+//	
+//	/**
+//	 * by DaoByDto injection
+//	 * @param daoByDto
+//	 */
+//	public void setIResturantBusinessImp(IResturantBusinessImp iResturantBusinessImp) {
+//		this.iResturantBusinessImp = iResturantBusinessImp;
+//	}
+	
+	public DaoByDto getDaoByDto() {
+		return daoByDto;
+	}
+	public void setDaoByDto(DaoByDto daoByDto) {
+		this.daoByDto = daoByDto;
+	}
+	
+	
+	
 	/******* Métodos agregados **********/
 	
 	public Restaurant getResturantFromDto() {
-		return new RestaurantDAOImp().get(restaurantName);
+	//	System.out.println("daoByDto is null ? : " + daoByDto);
+//		return iResturantBusinessImp.getRestaurantDao().get(restaurantName);
+		return daoByDto.getRest_dao().get(restaurantName);
 	}
 	
+	
 	public Turn getTurnFromDto() {
-		return new TurnDAOImp().get(turn);
+//		return iResturantBusinessImp.getTurnDao().get(turn);
+		return daoByDto.getTurn_dao().get(turn);
 	}
 }

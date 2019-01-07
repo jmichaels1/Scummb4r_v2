@@ -4,19 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
-
-import com.everis.bcn.config.AppConfig;
-import com.everis.bcn.config.EntityManagerConfig;
 import com.everis.bcn.dao.Dao;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
-import com.everis.bcn.model.MessageString;
 import com.google.common.collect.Sets;
 
 /**
@@ -26,9 +19,9 @@ import com.google.common.collect.Sets;
  */
 @Repository
 public class BookingDAOImp implements Dao<Booking> {
-
-	private EntityManager entityManager = new AnnotationConfigApplicationContext(AppConfig.class)
-			.getBean(EntityManagerConfig.class).getEntityManager();
+	
+	@Autowired
+	private EntityManager entityManager;
 	
 	
 	@Override
@@ -62,6 +55,7 @@ public class BookingDAOImp implements Dao<Booking> {
 
 	@Override
 	public Set<Booking> getAll() {
+		System.out.println("eres nulo entityManager desde bookingDaoImp : " + entityManager);
 		return Sets.newHashSet((ArrayList<Booking>) entityManager
 				.createQuery("Select a From Booking a", Booking.class)
 				.getResultList());

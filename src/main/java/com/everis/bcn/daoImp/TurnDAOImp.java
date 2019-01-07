@@ -2,13 +2,10 @@ package com.everis.bcn.daoImp;
 
 import java.util.ArrayList;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-
-import com.everis.bcn.config.AppConfig;
-import com.everis.bcn.config.EntityManagerConfig;
 import com.everis.bcn.dao.Dao;
 import com.everis.bcn.entity.Turn;
 import com.google.common.collect.Sets;
@@ -21,8 +18,8 @@ import com.google.common.collect.Sets;
 @Repository
 public class TurnDAOImp implements Dao<Turn> {
 	
-	private EntityManager entityManager = new AnnotationConfigApplicationContext(AppConfig.class)
-			.getBean(EntityManagerConfig.class).getEntityManager();
+	@Autowired
+	private EntityManager entityManager;
 	
 	@Override
 	public void save(Turn turn) {
@@ -55,8 +52,15 @@ public class TurnDAOImp implements Dao<Turn> {
 
 	@Override
 	public Set<Turn> getAll() {
-		System.out.println("entityManager is null : " + entityManager);
+		System.out.println("entityManager de turnDaoImp is null : " + entityManager);
 		return Sets.newHashSet((ArrayList<Turn>) entityManager
+				.createQuery("Select a From Turn a", Turn.class)
+				.getResultList());
+	}
+	
+	public void getAll_test() {
+		System.out.println("Aqui tienes que petar !!! : " + entityManager);
+		Sets.newHashSet((ArrayList<Turn>) entityManager
 				.createQuery("Select a From Turn a", Turn.class)
 				.getResultList());
 	}

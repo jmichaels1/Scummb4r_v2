@@ -23,11 +23,11 @@ public class CancellationsValidate implements Validator{
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		CancelDto dto = (CancelDto) obj;
+		CancelDto cancellationDto = (CancelDto) obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "day", "required.persons", "es olbigatorio indicar el día de la reserva");
-		if (dto.getDay() == null)  errors.rejectValue("day", "fecha de reserva no es válida");
-		if (dto.getLocalizator() < 1)  errors.rejectValue("Localizator", "Localizator no es válido");
+		if (cancellationDto.getDay() == null)  errors.rejectValue("day", "fecha de reserva no es válida");
+		if (cancellationDto.getLocalizator() < 1)  errors.rejectValue("Localizator", "Localizator no es válido");
 	}
 
 }

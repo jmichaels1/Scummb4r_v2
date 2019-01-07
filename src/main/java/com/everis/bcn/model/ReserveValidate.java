@@ -25,10 +25,10 @@ public class ReserveValidate implements Validator {
 
 	@Override
 	public void validate(Object obj, Errors errors) {
-		BookingDto bookingDto = (BookingDto) obj;
+		BookingDto reserveDto = (BookingDto) obj;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "day", "required.persons", "es olbigatorio indicar el día de la reserva");
-		if (bookingDto.getDay() == null)  errors.rejectValue("day", "fecha de reserva no es válida");
-		if (bookingDto.getPersons() < 1)  errors.rejectValue("persons", "Cantidad de Personas para la reserva no es válido");
+		if (reserveDto.getDay() == null)  errors.rejectValue("day", "fecha de reserva no es válida");
+		if (reserveDto.getPersons() < 1)  errors.rejectValue("persons", "Cantidad de Personas para la reserva no es válido");
 	}
 }

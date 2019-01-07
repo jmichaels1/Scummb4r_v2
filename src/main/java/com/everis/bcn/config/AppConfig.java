@@ -7,7 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import com.everis.bcn.daoImp.RestaurantDAOImp;
+import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.model.BookingAssembler;
+import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.model.MessageString;
 import com.everis.bcn.model.ModdelMapperConfig;
 
@@ -17,12 +20,12 @@ import com.everis.bcn.model.ModdelMapperConfig;
  *
  */
 @ComponentScan(basePackageClasses = {MessageString.class, BookingAssembler.class, 
-		ModdelMapperConfig.class})
+		ModdelMapperConfig.class, DaoByDto.class})
 @Configuration
 public class AppConfig {
 
 	@Bean
-	public EntityManager getEntity() {
+	public EntityManager getEntityManager() {
 		return Persistence.createEntityManagerFactory("persistence").createEntityManager();
 	}
 	
@@ -41,4 +44,8 @@ public class AppConfig {
 		return new ModdelMapperConfig();
 	}
 	
+	@Bean
+	public DaoByDto getDaoByDto() {
+		return new DaoByDto();
+	}
 }

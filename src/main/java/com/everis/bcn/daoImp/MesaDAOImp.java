@@ -2,16 +2,9 @@ package com.everis.bcn.daoImp;
 
 import java.util.ArrayList;
 import java.util.Set;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Repository;
-
-import com.everis.bcn.config.AppConfig;
-import com.everis.bcn.config.EntityManagerConfig;
 import com.everis.bcn.dao.Dao;
 import com.everis.bcn.entity.Mesa;
 import com.google.common.collect.Sets;
@@ -25,8 +18,8 @@ import com.google.common.collect.Sets;
 @Repository
 public class MesaDAOImp implements Dao<Mesa> {
 	
-	private EntityManager entityManager = new AnnotationConfigApplicationContext(AppConfig.class)
-			.getBean(EntityManagerConfig.class).getEntityManager();
+	@Autowired
+	private EntityManager entityManager;
 	
 	
 	@Override

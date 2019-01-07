@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.everis.bcn.model.BookingAssembler;
+import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.daoImp.BookingDAOImp;
 import com.everis.bcn.daoImp.MesaDAOImp;
 import com.everis.bcn.daoImp.RestaurantDAOImp;
@@ -34,13 +35,13 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	
 	@Autowired private BookingDAOImp bookinDao;
 	@Autowired private RestaurantDAOImp restaurantDao;
-	@Autowired private TurnDAOImp turnDAO;
+	@Autowired private TurnDAOImp turnDao;
 	@Autowired private MesaDAOImp mesaDao;
 	
 	@Autowired private MessageString messageString;
 	@Autowired private BookingAssembler bookingAssembler;
 	@Autowired private ModdelMapperConfig moddelMapperConfig;
-	
+	@Autowired private DaoByDto daoByDto;
 	
 	@Override
 	public boolean editBooking(Booking booking) {
@@ -89,7 +90,9 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	@Override
 	public Set<Turn> getTurns() {
-		return turnDAO.getAll();
+		Set<Turn> s = turnDao.getAll();
+		turnDao.getAll_test();
+		return s;
 	}
 	
 
@@ -97,6 +100,9 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	public Set<Booking> getBookings() {
 		return bookinDao.getAll();
 	}
+	
+	/********* Generated methods ************/
+	
 	
 	/**
 	 * generate Localizator
@@ -109,6 +115,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 				.replaceAll("-", ""));
 	}
 	
+
 	/***
 	 * message By Register
 	 * Booking
@@ -116,6 +123,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	 * @return
 	 */
 	public String manageReserve(Dto dto) {
+		dto.setDaoByDto(daoByDto);
 		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBooking());
 		messageString.setSuccess_booking(new StringBuilder());
 		return (IsThereTableAvailable(booking.getRestaurant().getRestaurantId(), 
@@ -156,7 +164,9 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	 * @return
 	 */
 	public String manageCancelReserve(Dto dto) {
+		dto.setDaoByDto(daoByDto);
 		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBookingCancel());
 		return cancelBooking(booking)? messageString.getSuccess_cancelBooking().toString() : messageString.getFailedCancel();
 	}
+
 }

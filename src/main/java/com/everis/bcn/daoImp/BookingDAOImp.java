@@ -7,6 +7,8 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.everis.bcn.dao.AbstractDao;
 import com.everis.bcn.dao.Dao;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
@@ -18,50 +20,50 @@ import com.google.common.collect.Sets;
  *
  */
 @Repository
-public class BookingDAOImp implements Dao<Booking> {
+public class BookingDAOImp extends AbstractDao<Booking> {
 	
-	@Autowired
-	private EntityManager entityManager;
-	
-	
-	@Override
-	public void save(Booking booking) {
-		entityManager.getTransaction().begin();
-		entityManager.persist(booking);
-		entityManager.getTransaction().commit();
-//		entityManager.close();
-	}
-
-	@Override
-	public void update(Booking booking) {
-		entityManager.getTransaction().begin();
-		entityManager.merge(booking);
-		entityManager.getTransaction().commit();
-//		entityManager.close();
-	}
-	
-	@Override
-	public Booking get(int bookingId) {
-		return entityManager.find(Booking.class, bookingId);
-	}
-
-	@Override
-	public void delete(int id) {
-		entityManager.getTransaction().begin();
-		entityManager.remove(get(id));
-		entityManager.getTransaction().commit();
-//		entityManager.close();
-	}
-
-	@Override
-	public Set<Booking> getAll() {
-		System.out.println("eres nulo entityManager desde bookingDaoImp : " + entityManager);
-		return Sets.newHashSet((ArrayList<Booking>) entityManager
-				.createQuery("Select a From Booking a", Booking.class)
-				.getResultList());
-	}	
+//	@Autowired
+//	private EntityManager entityManager;
+//	
+//	
+//	@Override
+//	public void save(Booking booking) {
+//		entityManager.getTransaction().begin();
+//		entityManager.persist(booking);
+//		entityManager.getTransaction().commit();
+////		entityManager.close();
+//	}
+//
+//	@Override
+//	public void update(Booking booking) {
+//		entityManager.getTransaction().begin();
+//		entityManager.merge(booking);
+//		entityManager.getTransaction().commit();
+////		entityManager.close();
+//	}
+//	
+//	@Override
+//	public Booking get(int bookingId) {
+//		return entityManager.find(Booking.class, bookingId);
+//	}
+//
+//	@Override
+//	public void delete(int id) {
+//		entityManager.getTransaction().begin();
+//		entityManager.remove(get(id));
+//		entityManager.getTransaction().commit();
+////		entityManager.close();
+//	}
+//
+//	@Override
+//	public Set<Booking> getAll() {
+//		return Sets.newHashSet((ArrayList<Booking>) entityManager
+//				.createQuery("Select a From Booking a", Booking.class)
+//				.getResultList());
+//	}	
 	
 	/***** Métoos Agregados *****/
+	
 		
 	/**
 	 * 
@@ -78,13 +80,6 @@ public class BookingDAOImp implements Dao<Booking> {
 						+ " and a.day = '" +  FORMAT3.format(day) + "'" 
 						+ " and a.turn.id = " + turnId, Mesa.class)
 				.getResultList());
-		
-		
-		for (Mesa mesa : s) {
-			
-			System.out.println("getMesasOfTheTurn : " + mesa);
-		}
-		
 		return s;
 	}
 	

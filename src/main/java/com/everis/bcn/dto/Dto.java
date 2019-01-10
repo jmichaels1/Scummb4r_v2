@@ -24,7 +24,6 @@ public class Dto {
 	private Date day;
 	private int turn;
 	
-//	private IResturantBusinessImp iResturantBusinessImp;
 	@Autowired private DaoByDto daoByDto;
 	
 	
@@ -49,17 +48,6 @@ public class Dto {
 		this.turn = turn;
 	}
 	
-//	public IResturantBusinessImp getIResturantBusinessImp() {
-//		return iResturantBusinessImp;
-//	}
-//	
-//	/**
-//	 * by DaoByDto injection
-//	 * @param daoByDto
-//	 */
-//	public void setIResturantBusinessImp(IResturantBusinessImp iResturantBusinessImp) {
-//		this.iResturantBusinessImp = iResturantBusinessImp;
-//	}
 	
 	public DaoByDto getDaoByDto() {
 		return daoByDto;
@@ -73,14 +61,11 @@ public class Dto {
 	/******* Métodos agregados **********/
 	
 	public Restaurant getResturantFromDto() {
-	//	System.out.println("daoByDto is null ? : " + daoByDto);
-//		return iResturantBusinessImp.getRestaurantDao().get(restaurantName);
 		return daoByDto.getRest_dao().get(restaurantName);
 	}
 	
 	
 	public Turn getTurnFromDto() {
-//		return iResturantBusinessImp.getTurnDao().get(turn);
 		return daoByDto.getTurn_dao().get(turn);
 	}
 }

@@ -1,5 +1,6 @@
 package com.everis.bcn.dao;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Set;
  *
  * @param <T>
  */
-public interface Dao<T> {
+public interface Dao<T extends Serializable> {
 	
 	void save(T t);
 	void update(T t);

@@ -6,9 +6,6 @@ import javax.persistence.Persistence;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import com.everis.bcn.daoImp.RestaurantDAOImp;
-import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.model.BookingAssembler;
 import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.model.MessageString;

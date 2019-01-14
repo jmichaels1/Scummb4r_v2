@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 
 import com.everis.bcn.model.BookingAssembler;
 import com.everis.bcn.model.DaoByDto;
+import com.everis.bcn.dao.AbstractDao;
 import com.everis.bcn.daoImp.BookingDAOImp;
 import com.everis.bcn.daoImp.MesaDAOImp;
 import com.everis.bcn.daoImp.RestaurantDAOImp;
-import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.dto.Dto;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
@@ -35,13 +35,37 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	
 	@Autowired private BookingDAOImp bookinDao;
 	@Autowired private RestaurantDAOImp restaurantDao;
-	@Autowired private TurnDAOImp turnDao;
 	@Autowired private MesaDAOImp mesaDao;
+	@Autowired private AbstractDao<Turn> turnDao;
 	
 	@Autowired private MessageString messageString;
 	@Autowired private BookingAssembler bookingAssembler;
 	@Autowired private ModdelMapperConfig moddelMapperConfig;
 	@Autowired private DaoByDto daoByDto;
+	
+	@Autowired
+	   public void setDao(){
+//		bookinDao = (BookingDAOImp) daoToSet;
+		bookinDao.setClazz( Booking.class );
+	   }
+	
+	@Autowired
+	   public void setRestaurantDao(){
+//		restaurantDao = (RestaurantDAOImp) daoToSet;
+		restaurantDao.setClazz( Restaurant.class );
+	   }
+	
+	@Autowired
+	   public void setTurnDao(){
+//		turnDao = (TurnDAOImp) daoToSet;
+		turnDao.setClazz( Turn.class );
+	   }
+	
+	@Autowired
+	   public void setBookinDao(){
+//		bookinDao = (BookingDAOImp) daoToSet;
+		bookinDao.setClazz( Booking.class );
+	   }
 	
 	@Override
 	public boolean editBooking(Booking booking) {
@@ -90,9 +114,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	@Override
 	public Set<Turn> getTurns() {
-		Set<Turn> s = turnDao.getAll();
-		turnDao.getAll_test();
-		return s;
+		return turnDao.getAll();
 	}
 	
 

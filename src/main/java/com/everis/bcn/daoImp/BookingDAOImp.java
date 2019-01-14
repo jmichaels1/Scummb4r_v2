@@ -21,49 +21,6 @@ import com.google.common.collect.Sets;
  */
 @Repository
 public class BookingDAOImp extends AbstractDao<Booking> {
-	
-//	@Autowired
-//	private EntityManager entityManager;
-//	
-//	
-//	@Override
-//	public void save(Booking booking) {
-//		entityManager.getTransaction().begin();
-//		entityManager.persist(booking);
-//		entityManager.getTransaction().commit();
-////		entityManager.close();
-//	}
-//
-//	@Override
-//	public void update(Booking booking) {
-//		entityManager.getTransaction().begin();
-//		entityManager.merge(booking);
-//		entityManager.getTransaction().commit();
-////		entityManager.close();
-//	}
-//	
-//	@Override
-//	public Booking get(int bookingId) {
-//		return entityManager.find(Booking.class, bookingId);
-//	}
-//
-//	@Override
-//	public void delete(int id) {
-//		entityManager.getTransaction().begin();
-//		entityManager.remove(get(id));
-//		entityManager.getTransaction().commit();
-////		entityManager.close();
-//	}
-//
-//	@Override
-//	public Set<Booking> getAll() {
-//		return Sets.newHashSet((ArrayList<Booking>) entityManager
-//				.createQuery("Select a From Booking a", Booking.class)
-//				.getResultList());
-//	}	
-	
-	/***** Métoos Agregados *****/
-	
 		
 	/**
 	 * 

@@ -1,5 +1,6 @@
 package com.everis.bcn.dao;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 import javax.persistence.EntityManager;
@@ -16,10 +17,11 @@ import com.google.common.collect.Sets;
  * @param <T>
  */
 @Repository
-public class AbstractDao<T> implements Dao<T> {
+public class AbstractDao<T extends Serializable> implements Dao<T> {
+	
+	private Class< T > clazz;
 	
 	@Autowired protected EntityManager entityManager;
-	private Class< T > clazz;
 
 	@Override
 	public void save(T t) {

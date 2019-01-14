@@ -6,7 +6,6 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.everis.bcn.dto.CancelDto;
-import com.everis.bcn.dto.Dto;
 
 /***
  * 

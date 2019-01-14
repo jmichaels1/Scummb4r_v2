@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import com.everis.bcn.daoImp.BookingDAOImp;
 import com.everis.bcn.daoImp.MesaDAOImp;
 import com.everis.bcn.daoImp.RestaurantDAOImp;
-import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
 import com.everis.bcn.entity.Restaurant;
@@ -30,7 +29,7 @@ public class Test {
 
 //		HibernateManagerDB hm = new HibernateManagerDB("persistence");
 		
-		TurnDAOImp dao_turn = new TurnDAOImp();
+//		TurnDAOImp dao_turn = new TurnDAOImp();
 		BookingDAOImp dao = new BookingDAOImp();
 		RestaurantDAOImp rest_dao = new RestaurantDAOImp();
 		MesaDAOImp dao_mesa = new MesaDAOImp();
@@ -45,7 +44,7 @@ public class Test {
 //		t1.setTurnId(2);
 		t1.setDescription("1");
 		
-		dao_turn.save(t1);
+//		dao_turn.save(t1);
 		
 //		Restaurant r = new Restaurant();
 //		r.setRestaurantId(1);

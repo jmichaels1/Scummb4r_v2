@@ -12,7 +12,6 @@ import java.util.TimeZone;
 import com.everis.bcn.daoImp.BookingDAOImp;
 import com.everis.bcn.daoImp.MesaDAOImp;
 import com.everis.bcn.daoImp.RestaurantDAOImp;
-import com.everis.bcn.daoImp.TurnDAOImp;
 import com.everis.bcn.dto.BookingDto;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
@@ -31,7 +30,7 @@ public class TestNew {
 		
 		MesaDAOImp dao_mesa = new MesaDAOImp();
 		BookingDAOImp dao_booking = new BookingDAOImp();
-		TurnDAOImp dao_turn = new TurnDAOImp();
+//		TurnDAOImp dao_turn = new TurnDAOImp();
 		RestaurantDAOImp dao_rest = new RestaurantDAOImp();
 		
 //		Date d = dao_booking.get(1).getDay();

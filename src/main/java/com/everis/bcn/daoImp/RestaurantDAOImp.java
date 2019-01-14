@@ -14,9 +14,8 @@ import com.everis.bcn.entity.Restaurant;
 public class RestaurantDAOImp extends AbstractDao<Restaurant> {
 	
 	public Restaurant get(String restaurantName) {
-		Restaurant rest = entityManager
+		return  entityManager
 				.createQuery("Select a From Restaurant a where a.name = '" + restaurantName + "'", Restaurant.class)
 				.getSingleResult();
-		return  rest;
 	}
 }

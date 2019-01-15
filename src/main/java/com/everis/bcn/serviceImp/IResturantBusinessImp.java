@@ -32,72 +32,70 @@ import com.everis.bcn.service.IResturantBusiness;
  */
 @Service
 public class IResturantBusinessImp implements IResturantBusiness {
-	
-	@Autowired private BookingDAOImp bookinDao;
-	@Autowired private RestaurantDAOImp restaurantDao;
-	@Autowired private MesaDAOImp mesaDao;
-	@Autowired private AbstractDao<Turn> turnDao;
-	
-	@Autowired private MessageString messageString;
-	@Autowired private BookingAssembler bookingAssembler;
-	@Autowired private ModdelMapperConfig moddelMapperConfig;
-	@Autowired private DaoByDto daoByDto;
-	
+
 	@Autowired
-	   public void setDao(){
-//		bookinDao = (BookingDAOImp) daoToSet;
-		bookinDao.setClazz( Booking.class );
-	   }
-	
+	private BookingDAOImp bookinDao;
 	@Autowired
-	   public void setRestaurantDao(){
-//		restaurantDao = (RestaurantDAOImp) daoToSet;
-		restaurantDao.setClazz( Restaurant.class );
-	   }
-	
+	private RestaurantDAOImp restaurantDao;
 	@Autowired
-	   public void setTurnDao(){
-//		turnDao = (TurnDAOImp) daoToSet;
-		turnDao.setClazz( Turn.class );
-	   }
-	
+	private MesaDAOImp mesaDao;
 	@Autowired
-	   public void setBookinDao(){
-//		bookinDao = (BookingDAOImp) daoToSet;
-		bookinDao.setClazz( Booking.class );
-	   }
+	private AbstractDao<Turn> turnDao;
+
+	@Autowired
+	private MessageString messageString;
+	@Autowired
+	private BookingAssembler bookingAssembler;
+	@Autowired
+	private ModdelMapperConfig moddelMapperConfig;
+	@Autowired
+	private DaoByDto daoByDto;
 	
+	/**
+	 * inject Entity class in Dao
+	 */
+	@Autowired
+	public void setDao() {
+		bookinDao.setClazz(Booking.class);
+		restaurantDao.setClazz(Restaurant.class);
+		turnDao.setClazz(Turn.class);
+		bookinDao.setClazz(Booking.class);
+	}
+
 	@Override
 	public boolean editBooking(Booking booking) {
-		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public boolean cancelBooking(Booking bookingFromDto) {
 		boolean resp = true;
 		Booking booking_cancel_aux = bookinDao.get(bookingFromDto.getLocalizador());
-		if (booking_cancel_aux == null || !bookingFromDto.equals(booking_cancel_aux)) resp = false;
-		else bookinDao.delete(booking_cancel_aux.getBookingId());
+		if (booking_cancel_aux == null || !bookingFromDto.equals(booking_cancel_aux))
+			resp = false;
+		else
+			bookinDao.delete(booking_cancel_aux.getBookingId());
 		return resp;
 	}
 
 	@Override
 	public boolean reserve(Booking booking) {
 		boolean resp = true;
-			Set<Mesa> setMesa = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
-			Set<Mesa> setBookingMesa = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), 
-					booking.getTurn().getTurnId(), booking.getDay());
-			List<Mesa> listMesasAvailablesCapacity = setMesa.stream().filter(mesa -> (!setBookingMesa.contains(mesa) 
-					&& booking.getPersonas()<=mesa.getCapacity())).collect(Collectors.toList());
-			
-			booking.setMesa(listMesasAvailablesCapacity.size()>0? listMesasAvailablesCapacity.get(0): null);
-			
-			if (booking.getMesa() != null) {
-				booking.setLocalizador(generateLocalizator(booking));
-				bookinDao.save(booking);
-			} else resp = false;
-			 
+		Set<Mesa> setMesa = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
+		Set<Mesa> setBookingMesa = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(),
+				booking.getTurn().getTurnId(), booking.getDay());
+		List<Mesa> listMesasAvailablesCapacity = setMesa.stream()
+				.filter(mesa -> (!setBookingMesa.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))
+				.collect(Collectors.toList());
+
+		booking.setMesa(listMesasAvailablesCapacity.size() > 0 ? listMesasAvailablesCapacity.get(0) : null);
+
+		if (booking.getMesa() != null) {
+			booking.setLocalizador(generateLocalizator(booking));
+			bookinDao.save(booking);
+		} else
+			resp = false;
+
 		return resp;
 	}
 
@@ -105,42 +103,39 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	public void addRestaurant(Restaurant restaurant) {
 		restaurantDao.save(restaurant);
 	}
-	
+
 	@Override
 	public Set<Restaurant> getRestaurants() {
 		return restaurantDao.getAll();
 	}
-	
 
 	@Override
 	public Set<Turn> getTurns() {
 		return turnDao.getAll();
 	}
-	
 
 	@Override
 	public Set<Booking> getBookings() {
 		return bookinDao.getAll();
 	}
-	
+
 	/********* Generated methods ************/
-	
-	
+
 	/**
 	 * generate Localizator
+	 * 
 	 * @param booking
 	 * @return
 	 */
 	private long generateLocalizator(Booking booking) {
-		return Long.parseLong(""+booking.getRestaurant().getRestaurantId() + booking.getMesa().getId() +
-				+ booking.getTurn().getTurnId() +  MessageString.getFormat().format(booking.getDay())
-				.replaceAll("-", ""));
+		return Long.parseLong("" + booking.getRestaurant().getRestaurantId() + booking.getMesa().getId()
+				+ +booking.getTurn().getTurnId()
+				+ MessageString.getFormat().format(booking.getDay()).replaceAll("-", ""));
 	}
-	
 
 	/***
-	 * message By Register
-	 * Booking
+	 * message By Register Booking
+	 * 
 	 * @param dto
 	 * @return
 	 */
@@ -148,38 +143,40 @@ public class IResturantBusinessImp implements IResturantBusiness {
 		dto.setDaoByDto(daoByDto);
 		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBooking());
 		messageString.setSuccess_booking(new StringBuilder());
-		return (IsThereTableAvailable(booking.getRestaurant().getRestaurantId(), 
-				booking.getTurn().getTurnId(), booking.getDay()))? reserve(booking)? 
-						messageString.getSuccess_booking().append(reserveDetail(booking)).toString():MessageString.getFailedCapacity() : MessageString.getFailedMesas();
+		return (IsThereTableAvailable(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(),
+				booking.getDay()))
+						? reserve(booking)
+								? messageString.getSuccess_booking().append(reserveDetail(booking)).toString()
+								: MessageString.getFailedCapacity()
+						: MessageString.getFailedMesas();
 	}
-	
+
 	/***
-	 * return boolean of table
-	 * available by turn in restaurant
+	 * return boolean of table available by turn in restaurant
+	 * 
 	 * @param restaurantId
 	 * @param turnId
 	 * @return
 	 */
 	@Transactional
 	public boolean IsThereTableAvailable(int restaurantId, int turnId, Date day) {
-		return mesaDao.getMesasIdOfTheRestaurant(restaurantId).stream().filter(
-				mesa -> (!bookinDao.getMesasOfTheTurn(restaurantId, turnId, day)
-						.contains(mesa))).collect(Collectors.toList()).size()>0;
+		return mesaDao.getMesasIdOfTheRestaurant(restaurantId).stream()
+				.filter(mesa -> (!bookinDao.getMesasOfTheTurn(restaurantId, turnId, day).contains(mesa)))
+				.collect(Collectors.toList()).size() > 0;
 	}
-	
-	
+
 	/**
 	 * info detail string
+	 * 
 	 * @return
 	 */
 	private String reserveDetail(Booking booking) {
-		return " detail : Codigo de Restaurant - " + booking.getRestaurant().getRestaurantId() + "\n" + 
-						"Mesa - " + booking.getMesa().getId() + "\n" + 
-						"Day - " + MessageString.getFormat().format(booking.getDay()) + "\n" +  
-						"Turno - " + booking.getTurn().getTurnId() + "\n" +  
-						"Localizator : " + booking.getLocalizador();
+		return " detail : Codigo de Restaurant - " + booking.getRestaurant().getRestaurantId() + "\n" + "Mesa - "
+				+ booking.getMesa().getId() + "\n" + "Day - " + MessageString.getFormat().format(booking.getDay())
+				+ "\n" + "Turno - " + booking.getTurn().getTurnId() + "\n" + "Localizator : "
+				+ booking.getLocalizador();
 	}
-	
+
 	/***
 	 * 
 	 * @param dto
@@ -188,7 +185,8 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	public String manageCancelReserve(Dto dto) {
 		dto.setDaoByDto(daoByDto);
 		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBookingCancel());
-		return cancelBooking(booking)? messageString.getSuccess_cancelBooking().toString() : messageString.getFailedCancel();
+		return cancelBooking(booking) ? messageString.getSuccess_cancelBooking().toString()
+				: messageString.getFailedCancel();
 	}
 
 }

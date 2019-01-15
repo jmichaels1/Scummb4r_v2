@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.everis.bcn.model.BookingAssembler;
 import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.dto.BookingDto;
-import com.everis.bcn.dto.Dto;
 import com.everis.bcn.model.ReserveValidate;
-import com.everis.bcn.model.ModelAttributeConfig;
 import com.everis.bcn.serviceImp.IResturantBusinessImp;
 
 /**
@@ -46,7 +43,6 @@ public class BookingController {
 	 */
 	@RequestMapping(value="booking", method=RequestMethod.GET)
 	public ModelAndView booking() {
-		System.out.println("daoByDto is null en bookingController get() : " + daoByDto);
 		return new ModelAndView("booking", "command", new BookingDto());
 	}
 	
@@ -60,7 +56,6 @@ public class BookingController {
 	 */
 	@RequestMapping(value="booking", method=RequestMethod.POST)
     public ModelAndView form(@ModelAttribute("command") BookingDto dto, BindingResult result, SessionStatus session){
-		System.out.println("daoByDto is null en bookingController post() : " + daoByDto);
 		ModelAndView mv = new ModelAndView();   
 		reserveValidate.validate(dto, result);
 		

@@ -1,11 +1,8 @@
 package com.everis.bcn.serviceImp;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,11 +69,13 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	@Override
 	public boolean reserve(Booking booking) {
-		Set<Mesa> listaMesasOfRestaurant = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
-		Set<Mesa> listaMesasOfTurn = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay());
 		boolean resp = true;
 		
-		List<Mesa> listMesasAvailablesCapacity = listaMesasOfRestaurant.stream()
+		Set<Mesa> listaMesasOfRestaurant = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
+		Set<Mesa> listaMesasOfTurn = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay());
+		
+		List<Mesa> listMesasAvailablesCapacity = listaMesasOfRestaurant
+				.stream()
 				.filter(mesa -> (!listaMesasOfTurn.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))
 				.collect(Collectors.toList());
 
@@ -85,8 +84,8 @@ public class IResturantBusinessImp implements IResturantBusiness {
 		if (booking.getMesa() != null) {
 			booking.setLocalizador(generateLocalizator(booking));
 			bookinDao.save(booking);
-		} else
-			resp = false;
+			
+		} else resp = false;
 
 		return resp;
 	}
@@ -135,26 +134,37 @@ public class IResturantBusinessImp implements IResturantBusiness {
 		dto.setDaoByDto(daoByDto);
 		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBooking());
 		messageString.setSuccess_booking(new StringBuilder());
-		return (IsThereTableAvailable(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(),
-				booking.getDay()))
-						? reserve(booking)
-								? messageString.getSuccess_booking().append(reserveDetail(booking)).toString()
-								: MessageString.getFailedCapacity()
+		
+		return areThereMesaAvailable(booking)? 
+				isThereCapacityAvailable(booking) ? messageString.getSuccess_booking().append(reserveDetail(booking)).toString() : MessageString.getFailedCapacity() 
 						: MessageString.getFailedMesas();
 	}
 
 	/***
 	 * return boolean of table available by turn in restaurant
-	 * 
-	 * @param restaurantId
-	 * @param turnId
+	 * @param booking
 	 * @return
 	 */
-	@Transactional
-	public boolean IsThereTableAvailable(int restaurantId, int turnId, Date day) {
-		return mesaDao.getMesasIdOfTheRestaurant(restaurantId).stream()
-				.filter(mesa -> (!bookinDao.getMesasOfTheTurn(restaurantId, turnId, day).contains(mesa)))
+	public boolean areThereMesaAvailable(Booking booking) {
+		return mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId()).stream()
+				.filter(mesa -> (!bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay()).contains(mesa)))
 				.collect(Collectors.toList()).size() > 0;
+	}
+	
+	/**
+	 * return boolean of capacity available and reserve
+	 * @return
+	 */
+	public boolean isThereCapacityAvailable(Booking booking) {
+		Set<Mesa> listaMesasOfRestaurant = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
+		Set<Mesa> listaMesasOfTurn = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay());
+		
+		List<Mesa> listMesasAvailablesCapacity = listaMesasOfRestaurant
+				.stream()
+				.filter(mesa -> (!listaMesasOfTurn.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))
+				.collect(Collectors.toList());
+		
+		return listMesasAvailablesCapacity.size() > 0 ? reserve(booking) : false;
 	}
 
 	/**

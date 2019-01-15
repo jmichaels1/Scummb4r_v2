@@ -72,9 +72,9 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	@Override
 	public boolean reserve(Booking booking) {
-		boolean resp = true;
 		Set<Mesa> listaMesasOfRestaurant = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
 		Set<Mesa> listaMesasOfTurn = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay());
+		boolean resp = true;
 		
 		List<Mesa> listMesasAvailablesCapacity = listaMesasOfRestaurant.stream()
 				.filter(mesa -> (!listaMesasOfTurn.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))

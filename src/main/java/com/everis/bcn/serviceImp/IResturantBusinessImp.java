@@ -33,23 +33,15 @@ import com.everis.bcn.service.IResturantBusiness;
 @Service
 public class IResturantBusinessImp implements IResturantBusiness {
 
-	@Autowired
-	private BookingDAOImp bookinDao;
-	@Autowired
-	private RestaurantDAOImp restaurantDao;
-	@Autowired
-	private MesaDAOImp mesaDao;
-	@Autowired
-	private AbstractDao<Turn> turnDao;
+	@Autowired private BookingDAOImp bookinDao;
+	@Autowired private RestaurantDAOImp restaurantDao;
+	@Autowired private MesaDAOImp mesaDao;
+	@Autowired private AbstractDao<Turn> turnDao;
 
-	@Autowired
-	private MessageString messageString;
-	@Autowired
-	private BookingAssembler bookingAssembler;
-	@Autowired
-	private ModdelMapperConfig moddelMapperConfig;
-	@Autowired
-	private DaoByDto daoByDto;
+	@Autowired private MessageString messageString;
+	@Autowired private BookingAssembler bookingAssembler;
+	@Autowired private ModdelMapperConfig moddelMapperConfig;
+	@Autowired private DaoByDto daoByDto;
 	
 	/**
 	 * inject Entity class in Dao
@@ -81,11 +73,11 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	@Override
 	public boolean reserve(Booking booking) {
 		boolean resp = true;
-		Set<Mesa> setMesa = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
-		Set<Mesa> setBookingMesa = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(),
-				booking.getTurn().getTurnId(), booking.getDay());
-		List<Mesa> listMesasAvailablesCapacity = setMesa.stream()
-				.filter(mesa -> (!setBookingMesa.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))
+		Set<Mesa> listaMesasOfRestaurant = mesaDao.getMesasIdOfTheRestaurant(booking.getRestaurant().getRestaurantId());
+		Set<Mesa> listaMesasOfTurn = bookinDao.getMesasOfTheTurn(booking.getRestaurant().getRestaurantId(), booking.getTurn().getTurnId(), booking.getDay());
+		
+		List<Mesa> listMesasAvailablesCapacity = listaMesasOfRestaurant.stream()
+				.filter(mesa -> (!listaMesasOfTurn.contains(mesa) && booking.getPersonas() <= mesa.getCapacity()))
 				.collect(Collectors.toList());
 
 		booking.setMesa(listMesasAvailablesCapacity.size() > 0 ? listMesasAvailablesCapacity.get(0) : null);

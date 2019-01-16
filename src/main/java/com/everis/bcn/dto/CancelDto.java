@@ -5,7 +5,7 @@ package com.everis.bcn.dto;
  * @author J Michael
  *
  */
-public class CancelDto extends Dto {
+public class CancelDto {
 	
 	private long localizator;
 	

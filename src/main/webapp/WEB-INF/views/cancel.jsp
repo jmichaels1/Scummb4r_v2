@@ -48,40 +48,40 @@
 
 			<form:errors path="*" element="div" cssClass="alert alert-danger" />
 
-			<div class="form-group">
-				<span class="col-md-1 col-md-offset-2 text-center"><i
-					class="fa fa-user bigicon"></i></span>
-				<div class="col-md-8">
-					<form:label path="restaurantName">restaurantName : </form:label>
-					<form:select id="restaurantName" path="restaurantName" name="restaurantName" type="text" class="form-control">
-						<form:options items="${aListRestaurant}" />
-						<form:errors path="restaurantName" />
-					</form:select>
-				</div>
-			</div>
+<!-- 			<div class="form-group"> -->
+<!-- 				<span class="col-md-1 col-md-offset-2 text-center"><i -->
+<!-- 					class="fa fa-user bigicon"></i></span> -->
+<!-- 				<div class="col-md-8"> -->
+<%-- 					<form:label path="restaurantName">restaurantName : </form:label> --%>
+<%-- 					<form:select id="restaurantName" path="restaurantName" name="restaurantName" type="text" class="form-control"> --%>
+<%-- 						<form:options items="${aListRestaurant}" /> --%>
+<%-- 						<form:errors path="restaurantName" /> --%>
+<%-- 					</form:select> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 
-			<div class="form-group">
-				<span class="col-md-1 col-md-offset-2 text-center"><i
-					class="fa fa-user bigicon"></i></span>
-				<div class="col-md-8">
-					<form:label path="day">Day : </form:label>
-					<form:input id="datepicker" path="day" name="day" type="text" />
-					<form:errors path="day" />
-				</div>
-			</div>
+<!-- 			<div class="form-group"> -->
+<!-- 				<span class="col-md-1 col-md-offset-2 text-center"><i -->
+<!-- 					class="fa fa-user bigicon"></i></span> -->
+<!-- 				<div class="col-md-8"> -->
+<%-- 					<form:label path="day">Day : </form:label> --%>
+<%-- 					<form:input id="datepicker" path="day" name="day" type="text" /> --%>
+<%-- 					<form:errors path="day" /> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 
-			<div class="form-group">
-				<span class="col-md-1 col-md-offset-2 text-center"><i
-					class="fa fa-envelope-o bigicon"></i></span>
-				<div class="col-md-8">
-					<form:label path="turn">Turn : </form:label>
-					<form:select id="turn" path="turn" name="turn" type="text"
-						class="form-control">
-						<form:options items="${aListTurn}" />
-						<form:errors path="turn" />
-					</form:select>
-				</div>
-			</div>
+<!-- 			<div class="form-group"> -->
+<!-- 				<span class="col-md-1 col-md-offset-2 text-center"><i -->
+<!-- 					class="fa fa-envelope-o bigicon"></i></span> -->
+<!-- 				<div class="col-md-8"> -->
+<%-- 					<form:label path="turn">Turn : </form:label> --%>
+<%-- 					<form:select id="turn" path="turn" name="turn" type="text" --%>
+<%-- 						class="form-control"> --%>
+<%-- 						<form:options items="${aListTurn}" /> --%>
+<%-- 						<form:errors path="turn" /> --%>
+<%-- 					</form:select> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
 
 			<div class="form-group">
 				<span class="col-md-1 col-md-offset-2 text-center"><i

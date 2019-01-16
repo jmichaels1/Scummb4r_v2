@@ -17,7 +17,7 @@ import com.everis.bcn.entity.Booking;
 public class ModdelMapperConfig {
 	
 	private ModelMapper modelMapperBooking;
-	private ModelMapper modelMapperBookingCancel;
+	private ModelMapper modelMapperCancel;
 	
 	/***
 	 * Constructor Default
@@ -37,12 +37,12 @@ public class ModdelMapperConfig {
 		this.modelMapperBooking = modelMapperBooking;
 	}
 
-	public ModelMapper getModelMapperBookingCancel() {
-		return modelMapperBookingCancel;
+	public ModelMapper getModelMapperCancel() {
+		return modelMapperCancel;
 	}
 
-	public void setModelMapperBookingCancel(ModelMapper modelMapperBookingCancel) {
-		this.modelMapperBookingCancel = modelMapperBookingCancel;
+	public void setModelMapperCancel(ModelMapper modelMapperCancel) {
+		this.modelMapperCancel = modelMapperCancel;
 	}
 	
 	/***** Metods Agregados ******/
@@ -71,14 +71,11 @@ public class ModdelMapperConfig {
 	 * @return
 	 */
 	public void modelMapperCancelConfig() {
-		modelMapperBookingCancel = new ModelMapper();
-		modelMapperBookingCancel.getConfiguration (). setAmbiguityIgnored (true);
-		modelMapperBookingCancel.addMappings(new PropertyMap<CancelDto, Booking>() {
+		modelMapperCancel = new ModelMapper();
+		modelMapperCancel.getConfiguration (). setAmbiguityIgnored (true);
+		modelMapperCancel.addMappings(new PropertyMap<CancelDto, Booking>() {
 			@Override
 			protected void configure() {
-				map().setRestaurant(source.getResturantFromDto()); 
-				map().setDay(source.getDay());
-				map().setTurn(source.getTurnFromDto());
 				map().setLocalizador(source.getLocalizator());
 			}
 		});

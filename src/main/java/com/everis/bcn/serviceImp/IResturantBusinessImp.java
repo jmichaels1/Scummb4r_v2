@@ -14,6 +14,7 @@ import com.everis.bcn.dao.AbstractDao;
 import com.everis.bcn.daoImp.BookingDAOImp;
 import com.everis.bcn.daoImp.MesaDAOImp;
 import com.everis.bcn.daoImp.RestaurantDAOImp;
+import com.everis.bcn.dto.CancelDto;
 import com.everis.bcn.dto.Dto;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
@@ -65,6 +66,9 @@ public class IResturantBusinessImp implements IResturantBusiness {
 		boolean resp = true;
 		Booking booking_cancel_aux = bookinDao.get(bookingFromDto.getLocalizador());
 		
+		System.out.println("bookingFromDto : " + bookingFromDto);
+		System.out.println("booking_cancel_aux : " + booking_cancel_aux);
+		
 		if (booking_cancel_aux == null || !bookingFromDto.equals(booking_cancel_aux)) resp = false;
 		else bookinDao.delete(booking_cancel_aux.getBookingId());
 		
@@ -113,18 +117,6 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	/********* Generated methods ************/
 
-	/**
-	 * generate Localizator
-	 * 
-	 * @param booking
-	 * @return
-	 */
-	private long generateLocalizator(Booking booking) {
-		return Long.parseLong("" + booking.getRestaurant().getRestaurantId() + booking.getMesa().getId()
-				+ +booking.getTurn().getTurnId()
-				+ MessageString.getFormat().format(booking.getDay()).replaceAll("-", ""));
-	}
-
 	/***
 	 * message By Register Booking
 	 * r
@@ -171,6 +163,21 @@ public class IResturantBusinessImp implements IResturantBusiness {
 		
 		return listMesasAvailablesCapacity.size() > 0 ? reserve(booking) : false;
 	}
+	
+	/***
+	 * manage Reserve cancelation
+	 * c
+	 * @param dto
+	 * @return
+	 */
+	public String manageCancelReserve(CancelDto dto) {
+		listaMesasOfRestaurant = new HashSet<Mesa>();
+		listaMesasOfTurn = new HashSet<Mesa>();
+		
+		Booking booking = bookingAssembler.getBookingFromCancelDto(dto, moddelMapperConfig.getModelMapperCancel());
+		return cancelBooking(booking) ? messageString.getSuccess_cancelBooking().toString()
+				: messageString.getFailedCancel();
+	}
 
 	/**
 	 * info detail string
@@ -183,20 +190,17 @@ public class IResturantBusinessImp implements IResturantBusiness {
 				+ "\n" + "Turno - " + booking.getTurn().getTurnId() + "\n" + "Localizator : "
 				+ booking.getLocalizador();
 	}
-
-	/***
+	
+	/**
+	 * generate Localizator
 	 * 
-	 * @param dto
+	 * @param booking
 	 * @return
 	 */
-	public String manageCancelReserve(Dto dto) {
-		listaMesasOfRestaurant = new HashSet<Mesa>();
-		listaMesasOfTurn = new HashSet<Mesa>();
-		
-		dto.setDaoByDto(daoByDto);
-		Booking booking = bookingAssembler.getBookingFromDto(dto, moddelMapperConfig.getModelMapperBookingCancel());
-		return cancelBooking(booking) ? messageString.getSuccess_cancelBooking().toString()
-				: messageString.getFailedCancel();
+	private long generateLocalizator(Booking booking) {
+		return Long.parseLong("" + booking.getRestaurant().getRestaurantId() + booking.getMesa().getId()
+				+ +booking.getTurn().getTurnId()
+				+ MessageString.getFormat().format(booking.getDay()).replaceAll("-", ""));
 	}
 
 }

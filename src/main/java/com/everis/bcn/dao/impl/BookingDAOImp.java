@@ -1,4 +1,4 @@
-package com.everis.bcn.daoImp;
+package com.everis.bcn.dao.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

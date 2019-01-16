@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.everis.bcn.model.BookingAssembler;
-import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.dao.AbstractDao;
-import com.everis.bcn.daoImp.BookingDAOImp;
-import com.everis.bcn.daoImp.MesaDAOImp;
-import com.everis.bcn.daoImp.RestaurantDAOImp;
+import com.everis.bcn.dao.MesaDAO;
+import com.everis.bcn.dao.impl.BookingDAOImp;
+import com.everis.bcn.dao.impl.RestaurantDAOImp;
 import com.everis.bcn.dto.CancelDto;
 import com.everis.bcn.dto.Dto;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
 import com.everis.bcn.entity.Restaurant;
 import com.everis.bcn.entity.Turn;
+import com.everis.bcn.model.BookingAssembler;
+import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.model.MessageString;
 import com.everis.bcn.model.ModdelMapperConfig;
 import com.everis.bcn.service.IResturantBusiness;
@@ -34,7 +34,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 
 	@Autowired private BookingDAOImp bookinDao;
 	@Autowired private RestaurantDAOImp restaurantDao;
-	@Autowired private MesaDAOImp mesaDao;
+	@Autowired private MesaDAO mesaDao;
 	@Autowired private AbstractDao<Turn> turnDao;
 
 	@Autowired private MessageString messageString;

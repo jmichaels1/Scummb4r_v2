@@ -9,9 +9,9 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 
-import com.everis.bcn.daoImp.BookingDAOImp;
-import com.everis.bcn.daoImp.MesaDAOImp;
-import com.everis.bcn.daoImp.RestaurantDAOImp;
+import com.everis.bcn.dao.impl.BookingDAOImp;
+import com.everis.bcn.dao.impl.MesaDAOImp;
+import com.everis.bcn.dao.impl.RestaurantDAOImp;
 import com.everis.bcn.dto.BookingDto;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;

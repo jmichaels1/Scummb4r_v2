@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.everis.bcn.dao.AbstractDao;
-import com.everis.bcn.daoImp.RestaurantDAOImp;
+import com.everis.bcn.dao.impl.RestaurantDAOImp;
 import com.everis.bcn.entity.Turn;
 
 @Component

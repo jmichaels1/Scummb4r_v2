@@ -1,4 +1,4 @@
-package com.everis.bcn.daoImp;
+package com.everis.bcn.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Set;

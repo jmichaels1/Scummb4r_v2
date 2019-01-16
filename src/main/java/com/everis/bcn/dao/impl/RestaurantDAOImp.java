@@ -1,4 +1,4 @@
-package com.everis.bcn.daoImp;
+package com.everis.bcn.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import com.everis.bcn.dao.AbstractDao;

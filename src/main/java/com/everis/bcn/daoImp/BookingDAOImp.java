@@ -25,13 +25,14 @@ public class BookingDAOImp extends AbstractDao<Booking> {
 	 * @param turnId
 	 * @return
 	 */
-	public Set<Mesa> getMesasOfTheTurn(int restaurantId, int turnId, Date day){
+	public Set<Mesa> getMesasOfTheTurn(Booking booking){
 		return Sets.newHashSet((ArrayList<Mesa>) entityManager
 				.createQuery("Select a.mesa "
 						+ "From Booking a "
-						+ "where a.restaurant.id = " + restaurantId  
-						+ " and a.day = '" +  new SimpleDateFormat("yyyy-MM-dd").format(day) + "'" 
-						+ " and a.turn.id = " + turnId, Mesa.class)
+						+ "where a.restaurant.id = " + booking.getRestaurant().getRestaurantId()  
+						+ " and a.day = '" +  new SimpleDateFormat("yyyy-MM-dd").format(booking.getDay()) + "'" 
+						+ " and a.turn.id = " + booking.getTurn().getTurnId(), 
+						Mesa.class)
 				.getResultList());
 	}
 	

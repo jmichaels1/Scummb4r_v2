@@ -28,7 +28,6 @@ public class BookingController {
 	@Autowired private IResturantBusinessImp iResturantBusinessImp;
 	@Autowired private ReserveValidate reserveValidate;
 	
-	@Autowired private DaoByDto daoByDto;
 	
 	/**
 	 * Método Constructor

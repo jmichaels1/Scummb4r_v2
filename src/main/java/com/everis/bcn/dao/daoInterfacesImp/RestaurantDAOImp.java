@@ -1,7 +1,10 @@
-package com.everis.bcn.dao.impl;
+package com.everis.bcn.dao.daoInterfacesImp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.everis.bcn.dao.AbstractDao;
+
+import com.everis.bcn.dao.daoAbstract.AbstractDao;
+import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Restaurant;
 
 
@@ -12,6 +15,14 @@ import com.everis.bcn.entity.Restaurant;
  */
 @Repository
 public class RestaurantDAOImp extends AbstractDao<Restaurant> {
+	
+	/**
+	 * inject Entity class in Dao
+	 */
+	@Autowired
+	public void setDao() {
+		setClazz(Restaurant.class);
+	}
 	
 	/**
 	 * get restaurant object

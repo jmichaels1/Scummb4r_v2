@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.everis.bcn.dao.AbstractDao;
-import com.everis.bcn.dao.MesaDAO;
-import com.everis.bcn.dao.impl.BookingDAOImp;
-import com.everis.bcn.dao.impl.RestaurantDAOImp;
+import com.everis.bcn.dao.daoAbstract.AbstractDao;
+import com.everis.bcn.dao.daoInterfaces.BookingDao;
+import com.everis.bcn.dao.daoInterfaces.MesaDao;
+import com.everis.bcn.dao.daoInterfaces.RestaurantDao;
+import com.everis.bcn.dao.daoInterfacesImp.BookingDAOImp;
+import com.everis.bcn.dao.daoInterfacesImp.RestaurantDAOImp;
 import com.everis.bcn.dto.CancelDto;
 import com.everis.bcn.dto.Dto;
 import com.everis.bcn.entity.Booking;
@@ -32,9 +34,9 @@ import com.everis.bcn.service.IResturantBusiness;
 @Service
 public class IResturantBusinessImp implements IResturantBusiness {
 
-	@Autowired private BookingDAOImp bookinDao;
-	@Autowired private RestaurantDAOImp restaurantDao;
-	@Autowired private MesaDAO mesaDao;
+	@Autowired private BookingDao bookinDao;
+	@Autowired private RestaurantDao restaurantDao;
+	@Autowired private MesaDao mesaDao;
 	@Autowired private AbstractDao<Turn> turnDao;
 
 	@Autowired private MessageString messageString;
@@ -45,16 +47,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	private Set<Mesa> listaMesasOfRestaurant;
 	private Set<Mesa> listaMesasOfTurn;
 	
-	/**
-	 * inject Entity class in Dao
-	 */
-	@Autowired
-	public void setDao() {
-		bookinDao.setClazz(Booking.class);
-		restaurantDao.setClazz(Restaurant.class);
-		turnDao.setClazz(Turn.class);
-		bookinDao.setClazz(Booking.class);
-	}
+	
 
 	@Override
 	public boolean editBooking(Booking booking) {

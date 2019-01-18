@@ -1,12 +1,15 @@
-package com.everis.bcn.dao.impl;
+package com.everis.bcn.dao.daoInterfacesImp;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.AbstractDao;
+import com.everis.bcn.dao.daoAbstract.AbstractDao;
+import com.everis.bcn.dao.daoInterfaces.BookingDao;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
 import com.google.common.collect.Sets;
@@ -17,7 +20,16 @@ import com.google.common.collect.Sets;
  *
  */
 @Repository
-public class BookingDAOImp extends AbstractDao<Booking> {
+public class BookingDAOImp extends AbstractDao<Booking> implements BookingDao {
+	
+	
+	/**
+	 * inject Entity class in Dao
+	 */
+	@Autowired
+	public void setDao() {
+		setClazz(Booking.class);
+	}
 		
 	/**
 	 * 
@@ -25,6 +37,7 @@ public class BookingDAOImp extends AbstractDao<Booking> {
 	 * @param turnId
 	 * @return
 	 */
+	@Override
 	public Set<Mesa> getMesasOfTheTurn(Booking booking){
 		return Sets.newHashSet((ArrayList<Mesa>) entityManager
 				.createQuery("Select a.mesa "
@@ -41,6 +54,7 @@ public class BookingDAOImp extends AbstractDao<Booking> {
 	 * @param localizator
 	 * @return
 	 */
+	@Override
 	public Booking get(long localizator) {
 		return entityManager
 				.createQuery("Select a "

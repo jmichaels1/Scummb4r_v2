@@ -1,12 +1,13 @@
-package com.everis.bcn.dao.impl;
+package com.everis.bcn.dao.daoInterfacesImp;
 
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.AbstractDao;
-import com.everis.bcn.dao.MesaDAO;
+import com.everis.bcn.dao.daoAbstract.AbstractDao;
+import com.everis.bcn.dao.daoInterfaces.MesaDao;
 import com.everis.bcn.entity.Mesa;
 import com.google.common.collect.Sets;
 
@@ -17,7 +18,15 @@ import com.google.common.collect.Sets;
  *
  */
 @Repository
-public class MesaDAOImp extends AbstractDao<Mesa> implements MesaDAO {
+public class MesaDAOImp extends AbstractDao<Mesa> implements MesaDao {
+	
+	/**
+	 * inject Entity class in Dao
+	 */
+	@Autowired
+	public void setDao() {
+		setClazz(Mesa.class);
+	}
 	
 	/**
 	 * get Mesas from restId

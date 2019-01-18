@@ -1,4 +1,4 @@
-package com.everis.bcn.dao;
+package com.everis.bcn.dao.daoAbstract;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.everis.bcn.dao.daoInterfaces.Dao;
 import com.everis.bcn.entity.Booking;
 import com.google.common.collect.Sets;
 

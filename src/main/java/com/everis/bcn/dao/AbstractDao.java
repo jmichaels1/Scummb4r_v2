@@ -1,13 +1,13 @@
-package com.everis.bcn.dao.daoAbstract;
+package com.everis.bcn.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.daoInterfaces.Dao;
 import com.everis.bcn.entity.Booking;
 import com.google.common.collect.Sets;
 
@@ -17,7 +17,7 @@ import com.google.common.collect.Sets;
  *
  * @param <T>
  */
-@Repository
+@Component
 public class AbstractDao<T extends Serializable> implements Dao<T> {
 	
 	private Class< T > clazz;
@@ -50,9 +50,14 @@ public class AbstractDao<T extends Serializable> implements Dao<T> {
 		entityManager.getTransaction().commit();
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public Set<T> getAll() {
+		Set<T> s = (Set<T>) Sets.newHashSet((ArrayList<Booking>) entityManager
+				.createQuery("From " + clazz.getName())
+				.getResultList());
+		
+		System.out.println("eres nulo tu? : " + s == null);
 		return (Set<T>) Sets.newHashSet((ArrayList<Booking>) entityManager
 				.createQuery("From " + clazz.getName())
 				.getResultList());

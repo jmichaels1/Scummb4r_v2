@@ -7,9 +7,9 @@ import java.util.function.Consumer;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
-import com.everis.bcn.dao.daoInterfacesImp.BookingDAOImp;
-import com.everis.bcn.dao.daoInterfacesImp.MesaDAOImp;
-import com.everis.bcn.dao.daoInterfacesImp.RestaurantDAOImp;
+import com.everis.bcn.dao.Imp.BookingDAOImp;
+import com.everis.bcn.dao.Imp.MesaDAOImp;
+import com.everis.bcn.dao.Imp.RestaurantDAOImp;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
 import com.everis.bcn.entity.Restaurant;

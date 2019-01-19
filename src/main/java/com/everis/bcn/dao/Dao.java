@@ -1,4 +1,4 @@
-package com.everis.bcn.dao.daoInterfaces;
+package com.everis.bcn.dao;
 
 import java.io.Serializable;
 import java.util.Set;

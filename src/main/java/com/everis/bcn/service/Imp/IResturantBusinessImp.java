@@ -1,4 +1,4 @@
-package com.everis.bcn.serviceImp;
+package com.everis.bcn.service.Imp;
 
 import java.util.HashSet;
 import java.util.List;
@@ -8,12 +8,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.everis.bcn.dao.daoAbstract.AbstractDao;
-import com.everis.bcn.dao.daoInterfaces.BookingDao;
-import com.everis.bcn.dao.daoInterfaces.MesaDao;
-import com.everis.bcn.dao.daoInterfaces.RestaurantDao;
-import com.everis.bcn.dao.daoInterfacesImp.BookingDAOImp;
-import com.everis.bcn.dao.daoInterfacesImp.RestaurantDAOImp;
+import com.everis.bcn.dao.BookingDao;
+import com.everis.bcn.dao.Dao;
+import com.everis.bcn.dao.MesaDao;
+import com.everis.bcn.dao.RestaurantDao;
+import com.everis.bcn.dao.TurnDao;
 import com.everis.bcn.dto.CancelDto;
 import com.everis.bcn.dto.Dto;
 import com.everis.bcn.entity.Booking;
@@ -37,7 +36,7 @@ public class IResturantBusinessImp implements IResturantBusiness {
 	@Autowired private BookingDao bookinDao;
 	@Autowired private RestaurantDao restaurantDao;
 	@Autowired private MesaDao mesaDao;
-	@Autowired private AbstractDao<Turn> turnDao;
+	@Autowired private TurnDao turnDao;
 
 	@Autowired private MessageString messageString;
 	@Autowired private BookingAssembler bookingAssembler;

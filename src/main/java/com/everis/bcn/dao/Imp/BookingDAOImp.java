@@ -1,15 +1,14 @@
-package com.everis.bcn.dao.daoInterfacesImp;
+package com.everis.bcn.dao.Imp;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.daoAbstract.AbstractDao;
-import com.everis.bcn.dao.daoInterfaces.BookingDao;
+import com.everis.bcn.dao.AbstractDao;
+import com.everis.bcn.dao.BookingDao;
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
 import com.google.common.collect.Sets;

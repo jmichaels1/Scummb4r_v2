@@ -1,9 +1,6 @@
-package com.everis.bcn.dao.daoInterfaces;
+package com.everis.bcn.dao;
 
 import java.util.Set;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import com.everis.bcn.entity.Booking;
 import com.everis.bcn.entity.Mesa;
@@ -13,7 +10,6 @@ import com.everis.bcn.entity.Mesa;
  * @author J Michael
  *
  */
-@Repository
 public interface BookingDao extends Dao<Booking> {
 	
 	public Set<Mesa> getMesasOfTheTurn(Booking booking);

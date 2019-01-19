@@ -1,10 +1,10 @@
-package com.everis.bcn.dao.daoInterfacesImp;
+package com.everis.bcn.dao.Imp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.daoAbstract.AbstractDao;
-import com.everis.bcn.entity.Booking;
+import com.everis.bcn.dao.AbstractDao;
+import com.everis.bcn.dao.RestaurantDao;
 import com.everis.bcn.entity.Restaurant;
 
 
@@ -14,7 +14,7 @@ import com.everis.bcn.entity.Restaurant;
  *
  */
 @Repository
-public class RestaurantDAOImp extends AbstractDao<Restaurant> {
+public class RestaurantDAOImp extends AbstractDao<Restaurant> implements RestaurantDao {
 	
 	/**
 	 * inject Entity class in Dao

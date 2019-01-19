@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.everis.bcn.dto.CancelDto;
 import com.everis.bcn.model.CancellationsValidate;
-import com.everis.bcn.serviceImp.IResturantBusinessImp;
+import com.everis.bcn.service.Imp.IResturantBusinessImp;
 
 
 /**

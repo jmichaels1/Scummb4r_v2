@@ -1,7 +1,4 @@
-package com.everis.bcn.dao.daoInterfaces;
-
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+package com.everis.bcn.dao;
 
 import com.everis.bcn.entity.Restaurant;
 
@@ -10,7 +7,6 @@ import com.everis.bcn.entity.Restaurant;
  * @author J Michael
  *
  */
-@Repository
 public interface RestaurantDao extends Dao<Restaurant> {
 	
 	/**

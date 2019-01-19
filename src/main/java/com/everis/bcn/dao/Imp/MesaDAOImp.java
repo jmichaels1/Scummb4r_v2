@@ -1,4 +1,4 @@
-package com.everis.bcn.dao.daoInterfacesImp;
+package com.everis.bcn.dao.Imp;
 
 import java.util.List;
 import java.util.Set;
@@ -6,8 +6,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.everis.bcn.dao.daoAbstract.AbstractDao;
-import com.everis.bcn.dao.daoInterfaces.MesaDao;
+import com.everis.bcn.dao.AbstractDao;
+import com.everis.bcn.dao.MesaDao;
 import com.everis.bcn.entity.Mesa;
 import com.google.common.collect.Sets;
 

@@ -2,7 +2,8 @@ package com.everis.bcn.model;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-import com.everis.bcn.serviceImp.IResturantBusinessImp;
+
+import com.everis.bcn.service.Imp.IResturantBusinessImp;
 
 /***
  * 

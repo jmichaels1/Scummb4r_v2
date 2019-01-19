@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.dto.BookingDto;
 import com.everis.bcn.model.ReserveValidate;
-import com.everis.bcn.serviceImp.IResturantBusinessImp;
+import com.everis.bcn.service.Imp.IResturantBusinessImp;
 
 /**
  * 

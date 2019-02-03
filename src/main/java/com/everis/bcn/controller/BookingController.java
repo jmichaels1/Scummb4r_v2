@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.everis.bcn.model.DaoByDto;
 import com.everis.bcn.dto.BookingDto;
 import com.everis.bcn.model.ReserveValidate;
 import com.everis.bcn.service.Imp.IResturantBusinessImp;

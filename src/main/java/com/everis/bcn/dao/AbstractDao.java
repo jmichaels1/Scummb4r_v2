@@ -51,13 +51,9 @@ public class AbstractDao<T extends Serializable> implements Dao<T> {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Set<T> getAll() {
-		Set<T> s = (Set<T>) Sets.newHashSet((ArrayList<Booking>) entityManager
-				.createQuery("From " + clazz.getName())
-				.getResultList());
-		
-		System.out.println("eres nulo tu? : " + s == null);
 		return (Set<T>) Sets.newHashSet((ArrayList<Booking>) entityManager
 				.createQuery("From " + clazz.getName())
 				.getResultList());
